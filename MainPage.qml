@@ -182,7 +182,7 @@ Page {
                                         text: number;
                                         font.bold: true;
                                         color: "#616161"
-                                        font.pixelSize: 100
+                                        font.pixelSize: 165
                                     }
                                 }
                             }

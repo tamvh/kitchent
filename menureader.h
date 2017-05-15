@@ -14,7 +14,6 @@ class MenuReader : public QThread
 {
     Q_OBJECT
     void run() Q_DECL_OVERRIDE {
-        _timerCheckEventHappen = 1000;
         read();
     }
 signals:
@@ -23,10 +22,11 @@ signals:
 private slots:
 protected:
     bool mappingChar(uint8_t *buffer, int len, char &out);
+    bool checkHid(unsigned short vid, unsigned short pid);
     void timerEvent(QTimerEvent *event);
 public:
     void read();
-    static bool checkHid(uint16_t vid, uint16_t pid);
+
 private:
    int res = 0;
    int _timerCheckEventHappen;

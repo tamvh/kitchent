@@ -34,7 +34,7 @@ Item {
                 verticalAlignment: Text.AlignVCenter
                 text: mainPage.currentNumber
                 font.family: montserrat.name
-                font.pixelSize: 150
+                font.pixelSize: 250
                 font.weight: Font.Medium
                 color: "white"
             }

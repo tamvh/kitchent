@@ -117,17 +117,22 @@ void MenuReader::read() {
 
     unsigned char buf[MAX_HID_BUF];
     char ch;
+    bool ckhid = false;
     hid_device *handle = NULL;
     std::string tag;
-//    handle = hid_open(0x24ea, 0x0197, NULL);
-//    qDebug() << "open success...";
+    handle = hid_open(0x24ea, 0x0197, NULL);
+    qDebug() << "open success...";
     while (1) {
-        handle = hid_open(0x24ea, 0x0197, NULL);
-        while (!handle) {
+//        handle = hid_open(0x24ea, 0x0197, NULL);
+        ckhid = MenuReader::checkHid(0x24ea, 0x0197);
+        while (!ckhid) {
             QThread::sleep(1);
             qDebug() << "try to open...";
             emit statusBarCode(false);
             handle = hid_open(0x24ea, 0x0197, NULL);
+            if(handle) {
+                break;
+            }
         }
 
         qDebug() << "open...";
@@ -157,12 +162,14 @@ void MenuReader::read() {
     }
 }
 
-bool MenuReader::checkHid(uint16_t vid, uint16_t pid)
+bool MenuReader::checkHid(unsigned short vid, unsigned short pid)
 {
     bool isHid = false;
     hid_device *handle = NULL;\
     handle = hid_open(vid, pid, NULL);
-    if (handle != NULL) {
+    qDebug() << "checkHid";
+    if (handle) {
+        qDebug() << "result when checkhid";
         isHid = true;
         hid_close(handle);
     }
