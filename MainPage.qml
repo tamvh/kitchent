@@ -211,7 +211,7 @@ Page {
         y: Math.abs(stackView.height -  sttbarcodedialog.height)/2
         Label {
             text: awesome.icons.fa_warning + " " + qsTr("Máy quét Barcode chưa sẵn sàng")
-            font.pixelSize: 20
+            font.pixelSize: 40
         }
     }
 }

@@ -1,4 +1,5 @@
 #include "menureader.h"
+#include "appsetting.h"
 #include <QThread>
 #define MAX_HID_BUF 65
 #define MAX_HID_OPEN_TIMEOUT 500
@@ -114,22 +115,22 @@ const barcodeMapping CharacterMap[] = {
 
 
 void MenuReader::read() {
-
+    unsigned short vid = 0x24ea;
+    unsigned short pid = 0x0197;
     unsigned char buf[MAX_HID_BUF];
     char ch;
     bool ckhid = false;
     hid_device *handle = NULL;
     std::string tag;
-    handle = hid_open(0x24ea, 0x0197, NULL);
+    handle = hid_open(vid, pid, NULL);
     qDebug() << "open success...";
     while (1) {
-//        handle = hid_open(0x24ea, 0x0197, NULL);
-        ckhid = MenuReader::checkHid(0x24ea, 0x0197);
+        ckhid = MenuReader::checkHid(vid, pid);
         while (!ckhid) {
             QThread::sleep(1);
             qDebug() << "try to open...";
             emit statusBarCode(false);
-            handle = hid_open(0x24ea, 0x0197, NULL);
+            handle = hid_open(vid, pid, NULL);
             if(handle) {
                 break;
             }

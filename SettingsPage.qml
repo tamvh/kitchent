@@ -125,7 +125,7 @@ Page {
                     Layout.fillWidth: true;
 
                     Component.onCompleted: {
-                        text = AppSetting.getVID()
+                        text = qsTr(AppSetting.getVID())
                     }
 
                     onTextChanged: {
