@@ -49,12 +49,14 @@ void MainController::onStatusBarCode(bool stt) {
 
 QVariant MainController::jsonData(QString number) {
     QString data = "";
-    if(number.size()>=4) {
-        data = CommonFunction::getInvoiceCodeFromBarCode(number).left(4);
+    QString invoiceCode = CommonFunction::getInvoiceCodeFromBarCode(number);
+    qDebug() << "Invoice Code: " << invoiceCode;
+    if(invoiceCode.size()>=4) {
+        data = invoiceCode.right(4);
     }
     QJsonObject jso;
     bool ck = false;
-    jso["number"] = data.toInt();
+    jso["number"] = data;
     for (int i = 0; i < aJson.size(); ++i) {
         if(QJsonValue(jso) == (aJson.at(i)))
         {
